@@ -23,11 +23,8 @@ n = size(X,2);  % number of features + 1 (for constant term)
 
 h = zeros(m,1);
 for i = 1:m
-    %theta
-    %X(i,:)
     d = X(i,:) * theta;
     h(i) = 1.0/(1.0 + exp(-d));
-    %fprintf('d=%f, h(%d)=%f\n', d, i, h(i));
 end    
 
 theta1 = theta(2:n,:);

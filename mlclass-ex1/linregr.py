@@ -1,12 +1,9 @@
 from numpy import loadtxt, zeros, ones, array, linspace, logspace
 from pylab import scatter, show, title, xlabel, ylabel, plot, contour
 
-
 #Evaluate the linear regression
 def compute_cost(X, y, theta):
-    '''
-    Comput cost for linear regression
-    '''
+    """ Compute cost for linear regression """
     #Number of training samples
     m = y.size
 
@@ -18,13 +15,11 @@ def compute_cost(X, y, theta):
 
     return J
 
-
 def gradient_descent(X, y, theta, alpha, num_iters):
-    '''
-    Performs gradient descent to learn theta
-    by taking num_items gradient steps with learning
-    rate alpha
-    '''
+    """ Performs gradient descent to learn theta
+        by taking num_items gradient steps with learning
+        rate alpha
+    """
     m = y.size
     J_history = zeros(shape=(num_iters, 1))
 
@@ -55,7 +50,6 @@ ylabel('Profit in $10,000s')
 
 X = data[:, 0]
 y = data[:, 1]
-
 
 #number of training samples
 m = y.size
@@ -88,11 +82,9 @@ result = it.dot(theta).flatten()
 plot(data[:, 0], result)
 show()
 
-
 #Grid over which we will calculate J
 theta0_vals = linspace(-10, 10, 100)
 theta1_vals = linspace(-1, 4, 100)
-
 
 #initialize J_vals to a matrix of 0's
 J_vals = zeros(shape=(theta0_vals.size, theta1_vals.size))
