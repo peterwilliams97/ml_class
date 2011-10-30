@@ -12,13 +12,15 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+pos = find(y==1); 
+neg = find(y == 0);
 
+plot(X(pos,1), X(pos,2), 'b+', 'MarkerSize', 7, 'LineWidth', 2 );
+plot(X(neg,1), X(neg,2), 'ro', 'MarkerSize', 7, 'LineWidth', 2);
 
-
-
-
-
-
+xlabel('Exam 1 score');
+ylabel('Exam 2 score');
+legend('Admitted', 'Not admitted');
 
 % =========================================================================
 
