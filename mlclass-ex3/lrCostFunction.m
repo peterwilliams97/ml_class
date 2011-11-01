@@ -35,26 +35,30 @@ grad = zeros(size(theta));
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
-
-size(theta)
-size(theta)
+%fprintf('X and theta\n');
+%size(X)
+%size(theta)
 
 theta1 = theta;
 theta1(1) = 0;
+# sigmoid(X * theta)
+h = (1.0)./(1.0+exp(-X*theta));
 
-h = (1.0)./(1.0+exp(-X*theta'));
+%fprintf('y and h\n');
+%size(y)
 %size(h)
 
-J = (-1.0/m)*sum(log(h)*y + log(1-h)*(1-y));
-J = J + (lambda/(2.0*m))*theta1*theta1';
-%size(J)
+J = (-1.0/m)*sum(log(h')*y + log(1-h')*(1-y));
+J = J + (lambda/(2.0*m))*theta1'*theta1;
 
-
-d = h'-y;
-grad = (1.0/m)*(d'*X);
+d = h-y;
+grad = (1.0/m)*(X'*d);
 grad = grad + (lambda/m) * theta1;
-%size(grad)
 
+%fprintf('J and grad\n');
+%size(J)
+%size(grad)
+%fprintf('done----\n');
 % =============================================================
 
 end
