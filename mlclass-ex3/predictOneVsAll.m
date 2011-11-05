@@ -9,11 +9,7 @@ function p = predictOneVsAll(all_theta, X)
 %  for 4 examples) 
 
 m = size(X, 1);
-num_labels = size(all_theta, 1);
 
-% You need to return the following variables correctly 
-p = zeros(size(X, 1), 1);
-a = zeros(size(X, 1), 1);
 % Add ones to the X data matrix
 X = [ones(m, 1) X];
 
@@ -31,19 +27,7 @@ X = [ones(m, 1) X];
 %       
 
 predictions = X * all_theta';
-size(predictions)
-save("-ascii", "raw.predictions.txt", "predictions");
-%p = max(predictions, [], 2);
-
-for i = 1:m
-  %predictions(i,:)
- [a(i),p(i)] = max(predictions(i,:));
-end
-
-
-
+[_,p] = max(predictions, [], 2);
 
 % =========================================================================
-
-
 end
