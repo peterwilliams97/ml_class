@@ -66,9 +66,9 @@ yb = zeros(m,10);
 for i=1:m
  yb(i,y(i)) = 1;
 end 
-size(X);
-size(Theta1);
-size(Theta2);
+size(X)
+size(Theta1)
+size(Theta2)
 size(y);
 size(yb)
 X1 = [ones(m,1), X];
@@ -81,15 +81,38 @@ size(a2);
 %[_,p] = max(a2, [], 2);
 size(a2)
 
-% J = 1/m(-y*log(h*x) - (1-y)log(1-h*x))
+% J = 1/m(-y*log(h*x) - (1-y)log(1-h*x)) + (lambda/2m)(theta1^2+ theta2^2)
 for i = 1:m
  for k = 1:10
   p = -yb(i,k)*log(a2(i,k)) - (1-yb(i,k))*log(1-a2(i,k));
   J = J + p;
  end 
 end
-
 J = J/m;
+
+% Compute the regularization penalty
+reg_penalty = 0
+
+for j = 1:size(Theta1)(1)
+ for k = 2:size(Theta1)(2)
+    reg_penalty = reg_penalty + Theta1(j,k)*Theta1(j,k);
+ end 
+end
+
+for j = 1:size(Theta2)(1)
+ for k = 2:size(Theta2)(2)
+    reg_penalty = reg_penalty + Theta2(j,k)*Theta2(j,k);
+ end 
+end
+
+reg_penalty = reg_penalty*lambda/(2*m);
+
+J = J + reg_penalty;
+
+
+%J = (1/m)*(-yb.*log(a2) - (1-yb).*log(1-a2));
+
+
 
 
 
