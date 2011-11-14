@@ -62,21 +62,17 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%X
+%y
+%Theta1
+%Theta2
+
 yb = zeros(m,num_labels);
 for i=1:m
  yb(i,y(i)) = 1;
 end 
-%size(X)
-%size(yb)
-%size(Theta1)
-%size(Theta2)
-%X
-%y
-%yb
-%Theta1
-%Theta2
-%size(yb)
 X1 = [ones(m,1), X];
+
 z1 = X1 * Theta1';
 a1 = sigmoid(z1);
 a11 = [ones(m,1), a1];
@@ -124,30 +120,31 @@ J = J + reg_penalty;
 % Sample by sample
 for t = 1:m
     % Forward to calculate error for sample t
-    a_1 = X(t,:);
-    a_1 = [1, a_1];
+    a_1 = X(t,:)';
+    a_1 = [1; a_1];
            
-    z_2 = a_1 * Theta1';
-    a_2 = sigmoid(z_2);
-    a_2 = [1, a_2];
+    z_2 = Theta1 * a_1;
     
-    z_3 = a_2 * Theta2';
+    a_2 = sigmoid(z_2);
+    a_2 = [1; a_2];
+    
+    z_3 = Theta2 * a_2;
+    
     a_3 = sigmoid(z_3);
     
-    yt = yb(t,:);
+    yt = yb(t,:)';
     delta_3 = a_3 - yt; 
     
     %size(delta_3)
     
     % Propagate error backwards
-    delta_2 = (delta_3 * Theta2);
+    delta_2 = (Theta2' * delta_3) .* sigmoidGradient([1; z_2]);
     delta_2 = delta_2(2:end); 
-    delta_2 = delta_2 .* sigmoidGradient(a_2(2:end));
     %size(delta_2)
  
-    delta_1 = (delta_2 * Theta1);
-    delta_1 = delta_1; 
-    delta_1 = delta_1 .* sigmoidGradient(a_1);
+  %  delta_1 = (delta_2 * Theta1);
+  %  delta_1 = delta_1; 
+  %  delta_1 = delta_1 .* sigmoidGradient(a_1);
     %size(delta_1)
  
 %    delta_1 = (delta_2 * Theta1) .* sigmoidGradient(xt);
@@ -158,10 +155,11 @@ for t = 1:m
     %size(delta_3)
     %size(Theta2_grad)
 
-    dt2 = delta_3' * a_2;
+    dt2 = delta_3 * a_2';
     %size(dt2)
-    dt1 = delta_2' * a_1;
+    dt1 = delta_2 * a_1';
     %size(dt1)
+    
  
     Theta2_grad = Theta2_grad + dt2;
     Theta1_grad = Theta1_grad + dt1;
@@ -169,9 +167,9 @@ for t = 1:m
 end
 
 Theta1_grad = (1/m) * Theta1_grad;
-Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + lambda * Theta1(:,2:end);
+Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + (lambda/m) * Theta1(:,2:end);
 Theta2_grad = (1/m) * Theta2_grad ;
-Theta2_grad(:,1:end) = Theta2_grad(:,1:end) + lambda * Theta2(:,1:end);
+Theta2_grad(:,2:end) = Theta2_grad(:,2:end) + (lambda/m) * Theta2(:,2:end);
 
 % =========================================================================
 
