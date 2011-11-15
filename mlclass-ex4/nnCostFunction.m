@@ -80,7 +80,7 @@ J = sum(sum( -yb.*log(a2) - (1-yb).*log(1-a2) ))/m;
 
 % Add the regularization penalty
 J = J + (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)) )* lambda/(2*m);
-
+q
 
 % -------------------------------------------------------------
 % Compute gradients using back propagation
