@@ -26,8 +26,6 @@ k = length(b);
 k0 = 1;
 j = k;
 
-
-
 % With this if statement, strings of length 1 or 2 don't go through the
 % stemming process. Remove this conditional to match the published
 % algorithm.

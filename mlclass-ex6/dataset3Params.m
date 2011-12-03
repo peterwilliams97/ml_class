@@ -23,6 +23,42 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+C = 0.27
+sigma = 0.09
+% best_error = 6
+
+best_error = 10^10;
+fac = sqrt(3);
+
+if false
+    C_x = 0.01;
+    
+    while C_x <= 10.0 * fac
+        
+        sigma_x = 0.01;
+        while sigma_x <= 10.0 * fac
+        
+            model = svmTrain(X, y, C_x, @(x1, x2) gaussianKernel(x1, x2, sigma_x));
+            predictions = svmPredict(model, Xval);
+            error = sum((predictions-yval).^2);
+            if error < best_error
+                C = C_x
+                sigma = sigma_x
+                best_error = error
+                
+            end
+            
+            sigma_x = sigma_x * fac;    
+        end
+        
+        C_x = C_x * fac;
+    end    
+
+end
+
+C
+sigma
+best_error
 
 
 

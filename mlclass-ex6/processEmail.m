@@ -45,7 +45,6 @@ email_contents = regexprep(email_contents, '[^\s]+@[^\s]+', 'emailaddr');
 % Handle $ sign
 email_contents = regexprep(email_contents, '[$]+', 'dollar');
 
-
 % ========================== Tokenize Email ===========================
 
 % Output the email to screen as well
@@ -97,13 +96,16 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
-
-
-
-
-
-
-
+    %fprintf('str=%s, length(vocabList)= %d\n', str, length(vocabList));
+    for i = 1 : length(vocabList);
+        %fprintf('  str=%s, vocabList{%d}=%s\n', str, i, vocabList{i});
+        if strcmp(str, vocabList{i});
+            word_indices = [word_indices; i];
+            %fprintf('  %s = %d\n', str, i);
+            %word_indices
+            break
+        end
+    end
 
 
     % =============================================================
@@ -121,5 +123,9 @@ end
 
 % Print footer
 fprintf('\n\n=========================\n');
+
+% !@#$
+%fprintf('word_indices=\n');
+%word_indices
 
 end
