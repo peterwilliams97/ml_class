@@ -26,11 +26,11 @@ Theta_grad = zeros(size(Theta));
 %               that the gradient is correct. Finally, you should implement
 %               regularization.
 %
-% Notes: X - num_movies  x num_features matrix of movie features
+% Notes: X     - num_movies  x num_features matrix of movie features
 %        Theta - num_users  x num_features matrix of user features
-%        Y - num_movies x num_users matrix of user ratings of movies
-%        R - num_movies x num_users matrix, where R(i, j) = 1 if the 
-%            i-th movie was rated by the j-th user
+%        Y     - num_movies x num_users matrix of user ratings of movies
+%        R     - num_movies x num_users matrix, where R(i, j) = 1 if the 
+%                i-th movie was rated by the j-th user
 %
 % You should set the following variables correctly:
 %
@@ -39,21 +39,16 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+%size(Theta)
+%size(X)
+%size(Y)
 
+%D = X*Theta' - Y;
+%D1 = D .* R;
+%D2 = D1 .^2;
+%J = sum(sum(D2))/2;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = sum(sum(((X*Theta' - Y) .* R) .^2))/2;
 
 % =============================================================
 
